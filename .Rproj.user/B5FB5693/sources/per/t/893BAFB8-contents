@@ -1,0 +1,25 @@
+#Import libraries
+library(readxl)
+library(dplyr)
+
+# Import municipality data
+data_muni <- read_excel("Regionale_kerncijfers_Nederland_02042024_105900.xlsx")
+
+# Remove rows with missing data
+clean_data <- na.omit(data_muni)
+
+# Import NO2 and landuse data
+data_NO2_landuse <- read_csv("data_NO2_landuse.csv")
+
+# Merge datasets
+data <- merge(clean_data, data_NO2_landuse, by.x = "Regio's", by.y = "naam")
+
+# Find rows not incorporated in the merge
+rows_not_incorporated <- anti_join(clean_data, data_NO2_landuse, by = c("Regio's" = "naam"))
+rows_not_incorporated
+
+# Add those to the municipality
+
+
+
+
